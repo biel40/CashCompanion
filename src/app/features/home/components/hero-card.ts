@@ -58,6 +58,19 @@ import { ChangeBadge } from '../../../shared/ui/change-badge/change-badge';
     .badge {
       margin-top: var(--space-5);
     }
+    @media (min-width: 1024px) {
+      :host {
+        align-content: end;
+        min-height: 17rem;
+        padding: var(--space-10);
+      }
+      .figure {
+        font-size: 5rem;
+      }
+      .caption {
+        font-size: var(--text-card-title);
+      }
+    }
   `,
 })
 export class HeroCard {

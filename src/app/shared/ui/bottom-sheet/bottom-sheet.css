@@ -17,6 +17,7 @@
   transform: translateY(100%);
   transition:
     transform var(--duration-sheet) var(--ease-out),
+    opacity var(--duration-micro) ease,
     overlay var(--duration-sheet) allow-discrete,
     display var(--duration-sheet) allow-discrete;
 }
@@ -63,5 +64,34 @@
     bottom: var(--space-6);
     border-radius: var(--radius-hero);
     padding-bottom: var(--space-6);
+  }
+}
+
+/* Desktop: centred dialog, offset to the content area next to the sidebar */
+@media (min-width: 1024px) {
+  .sheet {
+    inset: 0 0 0 var(--sidebar-width);
+    width: min(30rem, calc(100% - var(--sidebar-width) - 2 * var(--space-8)));
+    height: fit-content;
+    margin: auto;
+    padding: var(--space-8);
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+
+  .sheet[open] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .sheet[open] {
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+    }
+  }
+
+  .grabber {
+    display: none;
   }
 }

@@ -36,6 +36,9 @@
 
   /* Layout */
   --app-max-width: 560px;
+  --tablet-max-width: 720px;
+  --content-max-width: 1120px;
+  --sidebar-width: 16.5rem;
   --nav-height: 4.5rem;
   --tap-target: 2.75rem;
   --safe-top: var(--safe-area-inset-top, env(safe-area-inset-top, 0px));
@@ -78,7 +81,6 @@
   color-scheme: light;
 
   --bg: #f5f4ef;
-  --bg-outside: #ebe9e2;
   --surface: #ffffff;
   --surface-2: #efeee8;
   --surface-pressed: #e7e6df;
@@ -142,7 +144,6 @@
   color-scheme: dark;
 
   --bg: #0d0e12;
-  --bg-outside: #08090b;
   --surface: #17181e;
   --surface-2: #202129;
   --surface-pressed: #292a33;

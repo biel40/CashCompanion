@@ -35,9 +35,14 @@ import { Monogram } from '../../../shared/ui/monogram/monogram';
     </a>
   `,
   styles: `
+    :host {
+      display: block;
+    }
     .link {
       display: grid;
+      grid-template-rows: auto 1fr auto;
       gap: var(--space-2);
+      height: 100%;
       color: inherit;
       text-decoration: none;
     }
@@ -52,6 +57,7 @@ import { Monogram } from '../../../shared/ui/monogram/monogram';
     }
     .total {
       display: flex;
+      align-self: end;
       align-items: baseline;
       gap: var(--space-2);
     }
@@ -71,6 +77,11 @@ import { Monogram } from '../../../shared/ui/monogram/monogram';
     }
     .stack {
       display: flex;
+    }
+    @media (min-width: 1024px) {
+      .link {
+        padding: var(--space-8);
+      }
     }
     .stack app-monogram {
       margin-inline-start: -0.625rem;

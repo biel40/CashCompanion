@@ -7,7 +7,7 @@ const THEME_COLORS: Record<ResolvedTheme, string> = { light: '#F5F4EF', dark: '#
 @Service()
 export class ThemeService {
   private readonly _document = inject(DOCUMENT);
-  private readonly _darkQuery = this._document.defaultView?.matchMedia(
+  private readonly _darkQuery = this._document.defaultView?.matchMedia?.(
     '(prefers-color-scheme: dark)',
   );
   private readonly _systemDark = signal(this._darkQuery?.matches ?? false);
@@ -28,6 +28,10 @@ export class ThemeService {
   public setPreference(preference: ThemePreference): void {
     this._preference.set(preference);
     this._writePreference(preference);
+  }
+
+  public toggle(): void {
+    this.setPreference(this.resolved() === 'dark' ? 'light' : 'dark');
   }
 
   private _apply(theme: ResolvedTheme): void {

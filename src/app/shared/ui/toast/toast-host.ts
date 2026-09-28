@@ -26,6 +26,12 @@ import { Icon } from '../icon/icon';
       justify-items: center;
       pointer-events: none;
     }
+    @media (min-width: 1024px) {
+      .region {
+        inset-inline-start: var(--sidebar-width);
+        top: var(--space-6);
+      }
+    }
     .toast {
       display: inline-flex;
       align-items: center;

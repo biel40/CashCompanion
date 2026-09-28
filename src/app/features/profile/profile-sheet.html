@@ -1,0 +1,47 @@
+<app-bottom-sheet
+  [open]="panel.open()"
+  (openChange)="panel.setOpen($event)"
+  labelId="profile-title"
+>
+  <div class="head">
+    <h2 id="profile-title" class="title">Perfil</h2>
+    <button
+      type="button"
+      class="close pressable"
+      aria-label="Cerrar perfil"
+      (click)="panel.setOpen(false)"
+    >
+      <app-icon name="close" [size]="20" />
+    </button>
+  </div>
+
+  <div class="identity">
+    <app-avatar [name]="profile().name" [color]="profile().color" [size]="72" />
+    <div>
+      <p class="name">{{ profile().name }}</p>
+      <p class="email">{{ profile().email }}</p>
+    </div>
+  </div>
+
+  <dl class="facts">
+    <div class="fact">
+      <dt>Miembro desde</dt>
+      <dd>{{ memberSince() }}</dd>
+    </div>
+    <div class="fact">
+      <dt>Suscripciones activas</dt>
+      <dd class="tabular">{{ activeSubscriptions() }}</dd>
+    </div>
+    <div class="fact">
+      <dt>Moneda</dt>
+      <dd>{{ currency }}</dd>
+    </div>
+  </dl>
+
+  <app-theme-picker class="theme" />
+
+  <a class="settings-link pressable" routerLink="/ajustes" (click)="panel.setOpen(false)">
+    Todos los ajustes
+    <app-icon name="chevron-right" [size]="18" />
+  </a>
+</app-bottom-sheet>

@@ -8,6 +8,7 @@ export class DateFormatter {
   private readonly _locale = inject(APP_LOCALE);
   private readonly _dayMonth = this._create({ day: 'numeric', month: 'short' });
   private readonly _monthName = this._create({ month: 'long' });
+  private readonly _monthYear = this._create({ month: 'long', year: 'numeric' });
 
   /** "2 oct" */
   public dayMonth(date: IsoDate): string {
@@ -17,6 +18,11 @@ export class DateFormatter {
   /** "Septiembre" */
   public monthName(date: IsoDate): string {
     return this._capitalize(this._monthName.format(this._toUtcDate(date)));
+  }
+
+  /** "enero de 2024" */
+  public monthYear(date: IsoDate): string {
+    return this._monthYear.format(this._toUtcDate(date));
   }
 
   private _create(options: Intl.DateTimeFormatOptions): Intl.DateTimeFormat {

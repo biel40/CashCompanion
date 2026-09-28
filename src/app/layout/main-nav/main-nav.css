@@ -6,7 +6,12 @@
   justify-content: center;
   padding: 0 var(--space-3) calc(var(--space-2) + var(--safe-bottom));
   pointer-events: none;
-  view-transition-name: bottom-nav;
+  view-transition-name: main-nav;
+}
+
+.brand,
+.profile-chip {
+  display: none;
 }
 
 .bar {
@@ -71,5 +76,119 @@
 @keyframes tab-pop {
   40% {
     transform: translateY(-2px) scale(1.12);
+  }
+}
+
+/* Desktop: vertical sidebar */
+@media (min-width: 1024px) {
+  :host {
+    inset: 0 auto 0 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--space-8);
+    width: var(--sidebar-width);
+    padding: var(--space-8) var(--space-5);
+    border-inline-end: 1px solid var(--hairline);
+    background: var(--surface);
+    pointer-events: auto;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 0 var(--space-2);
+    color: var(--text);
+    font-size: 1.125rem;
+    font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-snug);
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.75rem;
+    background: var(--zest);
+    color: var(--ink);
+    font-size: 1.25rem;
+    rotate: -6deg;
+  }
+
+  .bar {
+    --tab-height: 3.25rem;
+    --tab-gap: var(--space-1);
+
+    grid-template-columns: 1fr;
+    grid-auto-rows: var(--tab-height);
+    gap: var(--tab-gap);
+    max-width: none;
+    height: auto;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .indicator {
+    inset: 0 0 auto;
+    width: auto;
+    height: var(--tab-height);
+    border-radius: var(--radius-row);
+    transform: translateY(calc(var(--active) * (var(--tab-height) + var(--tab-gap))));
+  }
+
+  .tab {
+    grid-auto-flow: column;
+    justify-content: start;
+    gap: var(--space-3);
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-row);
+  }
+
+  .label {
+    font-size: var(--text-body);
+    letter-spacing: 0;
+  }
+
+  /* Sits above the fixed "Añadir" button rendered by QuickAdd */
+  .profile-chip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin: auto 0 calc(3.25rem + var(--space-4));
+    padding: var(--space-2);
+    border: 0;
+    border-radius: var(--radius-row);
+    background: transparent;
+    text-align: start;
+  }
+
+  .profile-text {
+    display: grid;
+    min-width: 0;
+  }
+
+  .profile-name {
+    overflow: hidden;
+    font-weight: var(--weight-semibold);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .profile-hint {
+    color: var(--text-muted);
+    font-size: var(--text-caption);
+  }
+
+  @media (hover: hover) {
+    .tab:not(.active):hover,
+    .profile-chip:hover {
+      background: var(--surface-2);
+    }
   }
 }

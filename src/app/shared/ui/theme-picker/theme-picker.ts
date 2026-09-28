@@ -1,8 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
-import { ThemePreference } from '../../core/models/settings';
-import { ThemeService } from '../../core/ui-state/theme.service';
-import { Icon } from '../../shared/ui/icon/icon';
-import { IconName } from '../../shared/ui/icon/icons';
+import { ThemePreference } from '../../../core/models/settings';
+import { ThemeService } from '../../../core/ui-state/theme.service';
+import { Icon } from '../icon/icon';
+import { IconName } from '../icon/icons';
 
 interface ThemeOption {
   readonly value: ThemePreference;
@@ -41,7 +41,6 @@ const OPTIONS: readonly ThemeOption[] = [
       </div>
     </fieldset>
   `,
-  host: { class: 'card' },
   styles: `
     .group {
       margin: 0;

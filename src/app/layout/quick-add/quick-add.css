@@ -16,6 +16,47 @@
   animation: fab-in 520ms var(--ease-spring) 200ms both;
 }
 
+.fab-label {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .fab {
+    right: max(var(--space-8), calc((100vw - var(--tablet-max-width)) / 2 + var(--space-8)));
+  }
+}
+
+@media (max-width: 1023.98px) {
+  :host(.hide-floating) .fab {
+    display: none;
+  }
+}
+
+/* Desktop: extended button at the bottom of the sidebar */
+@media (min-width: 1024px) {
+  .fab {
+    right: auto;
+    left: var(--space-5);
+    bottom: var(--space-8);
+    display: flex;
+    gap: var(--space-2);
+    justify-content: center;
+    width: calc(var(--sidebar-width) - 2 * var(--space-5));
+    height: 3.25rem;
+    border-radius: var(--radius-row);
+    box-shadow: none;
+    font-weight: var(--weight-semibold);
+  }
+
+  .fab app-icon {
+    zoom: 0.8;
+  }
+
+  .fab-label {
+    display: inline;
+  }
+}
+
 .fab app-icon {
   transition: transform 380ms var(--ease-spring);
 }

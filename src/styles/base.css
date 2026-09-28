@@ -7,14 +7,14 @@
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  background: var(--bg-outside);
+  background: var(--bg);
   interpolate-size: allow-keywords;
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
-  background: var(--bg-outside);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
   font-size: var(--text-body);
@@ -98,9 +98,17 @@ svg {
 .pressable {
   transition:
     transform var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-micro) ease,
     background-color var(--duration-micro) ease;
   user-select: none;
   -webkit-user-select: none;
+}
+
+@media (hover: hover) {
+  a.card.pressable:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-float);
+  }
 }
 
 .pressable:active {
