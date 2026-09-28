@@ -44,4 +44,9 @@
     Todos los ajustes
     <app-icon name="chevron-right" [size]="18" />
   </a>
+
+  <button type="button" class="sign-out pressable" [disabled]="signingOut()" (click)="signOut()">
+    <app-icon name="log-out" [size]="18" />
+    {{ signingOut() ? 'Cerrando sesión…' : 'Cerrar sesión' }}
+  </button>
 </app-bottom-sheet>

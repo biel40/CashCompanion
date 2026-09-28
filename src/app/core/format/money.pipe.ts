@@ -6,7 +6,11 @@ import { MoneyFormatter } from './money-formatter';
 export class MoneyPipe implements PipeTransform {
   private readonly _formatter = inject(MoneyFormatter);
 
-  public transform(amountMinor: number, currency: CurrencyCode, wholeUnits = false): string {
+  public transform(
+    amountMinor: number,
+    currency: CurrencyCode,
+    wholeUnits: boolean = false,
+  ): string {
     return this._formatter.format(amountMinor, currency, wholeUnits);
   }
 }

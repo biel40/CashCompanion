@@ -1,5 +1,7 @@
-import { Component, computed, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { LOGIN_PATH } from '../../core/auth/auth.guards';
+import { AuthStore } from '../../core/auth/auth.store';
 import { DateFormatter } from '../../core/format/date-formatter';
 import { DEFAULT_CURRENCY } from '../../core/models/money';
 import { Avatar } from '../../shared/ui/avatar/avatar';
@@ -19,6 +21,8 @@ import { ProfileStore } from './profile.store';
 export class ProfileSheet {
   private readonly _dates = inject(DateFormatter);
   private readonly _subscriptions = inject(SubscriptionStore);
+  private readonly _auth = inject(AuthStore);
+  private readonly _router = inject(Router);
 
   protected readonly panel = inject(ProfilePanel);
   protected readonly profile = inject(ProfileStore).profile;
@@ -27,4 +31,13 @@ export class ProfileSheet {
   );
   protected readonly activeSubscriptions = computed(() => this._subscriptions.active().length);
   protected readonly currency = DEFAULT_CURRENCY;
+  protected readonly signingOut = signal<boolean>(false);
+
+  protected async signOut(): Promise<void> {
+    this.signingOut.set(true);
+    await this._auth.signOut();
+    this.panel.setOpen(false);
+    this.signingOut.set(false);
+    await this._router.navigateByUrl(LOGIN_PATH);
+  }
 }
