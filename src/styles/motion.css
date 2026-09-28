@@ -1,0 +1,57 @@
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.985);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Children of .stagger enter one after another; set --i on each child. */
+.stagger > * {
+  animation: card-in var(--duration-enter) var(--ease-spring) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* Route transitions (View Transitions API, progressive enhancement) */
+::view-transition-old(root) {
+  animation: fade-out 120ms var(--ease-in) both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 300ms var(--ease-out) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

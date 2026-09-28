@@ -1,0 +1,30 @@
+<button
+  type="button"
+  class="fab pressable"
+  aria-label="Añadir"
+  aria-haspopup="dialog"
+  [class.open]="open()"
+  (click)="open.set(true)"
+>
+  <app-icon name="plus" [size]="28" [strokeWidth]="2.4" />
+</button>
+
+<app-bottom-sheet [(open)]="open" labelId="quick-add-title">
+  <h2 id="quick-add-title" class="title">¿Qué quieres añadir?</h2>
+  <ul class="actions" role="list">
+    @for (action of actions; track action.id) {
+      <li>
+        <button type="button" class="action pressable" (click)="choose(action)">
+          <span class="action-icon" [class]="action.id">
+            <app-icon [name]="action.icon" [size]="24" />
+          </span>
+          <span class="action-text">
+            <span class="action-label">{{ action.label }}</span>
+            <span class="action-hint">{{ action.hint }}</span>
+          </span>
+          <app-icon class="chevron" name="chevron-right" [size]="20" />
+        </button>
+      </li>
+    }
+  </ul>
+</app-bottom-sheet>

@@ -1,0 +1,67 @@
+.sheet {
+  position: fixed;
+  inset: auto 0 0;
+  width: 100%;
+  max-width: var(--app-max-width);
+  max-height: calc(100dvh - var(--safe-top) - var(--space-8));
+  margin: 0 auto;
+  padding: var(--space-3) var(--gutter) calc(var(--space-6) + var(--safe-bottom));
+  border: 0;
+  border-radius: var(--radius-hero) var(--radius-hero) 0 0;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-sheet);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  transform: translateY(100%);
+  transition:
+    transform var(--duration-sheet) var(--ease-out),
+    overlay var(--duration-sheet) allow-discrete,
+    display var(--duration-sheet) allow-discrete;
+}
+
+.sheet[open] {
+  transform: translateY(0);
+}
+
+@starting-style {
+  .sheet[open] {
+    transform: translateY(100%);
+  }
+}
+
+.sheet::backdrop {
+  background: var(--scrim);
+  opacity: 0;
+  transition:
+    opacity var(--duration-sheet) var(--ease-out),
+    overlay var(--duration-sheet) allow-discrete,
+    display var(--duration-sheet) allow-discrete;
+}
+
+.sheet[open]::backdrop {
+  opacity: 1;
+}
+
+@starting-style {
+  .sheet[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.grabber {
+  width: 2.5rem;
+  height: 0.3125rem;
+  margin: 0 auto var(--space-5);
+  border-radius: var(--radius-pill);
+  background: var(--surface-pressed);
+}
+
+@media (min-width: 600px) {
+  .sheet {
+    bottom: var(--space-6);
+    border-radius: var(--radius-hero);
+    padding-bottom: var(--space-6);
+  }
+}

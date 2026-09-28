@@ -1,0 +1,99 @@
+.fab {
+  position: fixed;
+  z-index: 11;
+  right: max(var(--gutter), calc((100vw - var(--app-max-width)) / 2 + var(--gutter)));
+  bottom: calc(var(--nav-height) + var(--space-5) + var(--safe-bottom));
+  display: grid;
+  place-items: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 0;
+  border-radius: 1.375rem;
+  background: var(--fab-bg);
+  color: var(--fab-fg);
+  box-shadow: var(--shadow-float);
+  view-transition-name: fab;
+  animation: fab-in 520ms var(--ease-spring) 200ms both;
+}
+
+.fab app-icon {
+  transition: transform 380ms var(--ease-spring);
+}
+
+.fab.open app-icon {
+  transform: rotate(135deg);
+}
+
+@keyframes fab-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4) rotate(-90deg);
+  }
+}
+
+.title {
+  font-size: 1.375rem;
+  margin: 0 var(--space-1) var(--space-5);
+}
+
+.actions {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+  padding: var(--space-4);
+  border: 0;
+  border-radius: var(--radius-card);
+  background: var(--surface-2);
+  text-align: start;
+}
+
+.action:active {
+  background: var(--surface-pressed);
+}
+
+.action-icon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-tile);
+}
+
+.action-icon.expense {
+  background: var(--accent-lime-bg);
+  color: var(--accent-lime-fg);
+}
+
+.action-icon.subscription {
+  background: var(--accent-indigo-bg);
+  color: var(--accent-indigo-fg);
+}
+
+.action-text {
+  display: grid;
+  flex: 1;
+  gap: 0.125rem;
+}
+
+.action-label {
+  font-size: var(--text-card-title);
+  font-weight: var(--weight-semibold);
+}
+
+.action-hint {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+}
+
+.chevron {
+  color: var(--text-subtle);
+}
