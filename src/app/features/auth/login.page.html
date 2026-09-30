@@ -10,130 +10,94 @@
       <app-theme-toggle />
     </header>
 
-    @if (magicLinkSentTo(); as sentTo) {
-      <section class="sent" style="--i: 1" role="status" aria-labelledby="sent-title">
-        <span class="sent-icon"><app-icon name="mail" [size]="28" /></span>
-        <h2 id="sent-title" class="sent-title">Revisa tu correo</h2>
-        <p class="sent-text">
-          Te hemos enviado un enlace de acceso a <strong>{{ sentTo }}</strong
-          >. Ábrelo en este dispositivo para entrar.
-        </p>
-        <button type="button" class="secondary pressable" (click)="useAnotherEmail()">
-          Usar otro correo
-        </button>
-      </section>
-    } @else {
-      <fieldset class="modes" style="--i: 1" [style.--active]="modeIndex()">
-        <legend class="visually-hidden">Cómo quieres entrar</legend>
-        <span class="mode-indicator" aria-hidden="true"></span>
-        @for (option of modes; track option.value) {
-          <label class="mode" [class.active]="mode() === option.value">
-            <input
-              class="visually-hidden"
-              type="radio"
-              name="login-mode"
-              [value]="option.value"
-              [checked]="mode() === option.value"
-              (change)="setMode(option.value)"
-            />
-            {{ option.label }}
-          </label>
-        }
-      </fieldset>
-
-      <form class="form" style="--i: 2" [formRoot]="loginForm" [attr.aria-busy]="busy()">
-        <div class="field">
-          <label class="label" for="login-email">Correo electrónico</label>
-          <div class="control" [class.invalid]="emailError()">
-            <app-icon name="mail" [size]="20" />
-            <input
-              id="login-email"
-              type="email"
-              inputmode="email"
-              autocomplete="email"
-              autocapitalize="none"
-              spellcheck="false"
-              placeholder="tu@correo.com"
-              [formField]="loginForm.email"
-              [attr.aria-invalid]="emailError() ? 'true' : null"
-              [attr.aria-describedby]="emailError() ? 'login-email-error' : null"
-            />
-          </div>
-          @if (emailError(); as message) {
-            <p id="login-email-error" class="field-error">{{ message }}</p>
-          }
+    <form class="form" style="--i: 1" [formRoot]="loginForm" [attr.aria-busy]="busy()">
+      <div class="field">
+        <label class="label" for="login-email">Correo electrónico</label>
+        <div class="control" [class.invalid]="emailError()">
+          <app-icon name="mail" [size]="20" />
+          <input
+            id="login-email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            autocapitalize="none"
+            spellcheck="false"
+            placeholder="tu@correo.com"
+            [formField]="loginForm.email"
+            [attr.aria-invalid]="emailError() ? 'true' : null"
+            [attr.aria-describedby]="emailError() ? 'login-email-error' : null"
+          />
         </div>
+        @if (emailError(); as message) {
+          <p id="login-email-error" class="field-error">{{ message }}</p>
+        }
+      </div>
 
-        @if (mode() === 'password') {
-          <div class="field" animate.enter="field-enter">
-            <div class="label-row">
-              <label class="label" for="login-password">Contraseña</label>
-              <button
-                type="button"
-                class="forgot"
-                [disabled]="sendingReset()"
-                (click)="sendPasswordReset()"
-              >
-                {{ sendingReset() ? 'Enviando…' : '¿La has olvidado?' }}
-              </button>
-            </div>
-            <div class="control" [class.invalid]="passwordError()">
-              <app-icon name="lock" [size]="20" />
-              <input
-                id="login-password"
-                autocomplete="current-password"
-                placeholder="••••••••"
-                [type]="passwordVisible() ? 'text' : 'password'"
-                [formField]="loginForm.password"
-                [attr.aria-invalid]="passwordError() ? 'true' : null"
-                [attr.aria-describedby]="passwordError() ? 'login-password-error' : null"
-              />
-              <button
-                type="button"
-                class="reveal"
-                aria-label="Mostrar contraseña"
-                [attr.aria-pressed]="passwordVisible()"
-                (click)="passwordVisible.set(!passwordVisible())"
-              >
-                <app-icon [name]="passwordVisible() ? 'eye-off' : 'eye'" [size]="20" />
-              </button>
-            </div>
-            @if (passwordError(); as message) {
-              <p id="login-password-error" class="field-error">{{ message }}</p>
-            }
-          </div>
+      <div class="field">
+        <div class="label-row">
+          <label class="label" for="login-password">Contraseña</label>
+          <button
+            type="button"
+            class="forgot"
+            [disabled]="sendingReset()"
+            (click)="sendPasswordReset()"
+          >
+            {{ sendingReset() ? 'Enviando…' : '¿La has olvidado?' }}
+          </button>
+        </div>
+        <div class="control" [class.invalid]="passwordError()">
+          <app-icon name="lock" [size]="20" />
+          <input
+            id="login-password"
+            autocomplete="current-password"
+            placeholder="••••••••"
+            [type]="passwordVisible() ? 'text' : 'password'"
+            [formField]="loginForm.password"
+            [attr.aria-invalid]="passwordError() ? 'true' : null"
+            [attr.aria-describedby]="passwordError() ? 'login-password-error' : null"
+          />
+          <button
+            type="button"
+            class="reveal"
+            aria-label="Mostrar contraseña"
+            [attr.aria-pressed]="passwordVisible()"
+            (click)="passwordVisible.set(!passwordVisible())"
+          >
+            <app-icon [name]="passwordVisible() ? 'eye-off' : 'eye'" [size]="20" />
+          </button>
+        </div>
+        @if (passwordError(); as message) {
+          <p id="login-password-error" class="field-error">{{ message }}</p>
+        }
+      </div>
+
+      <div class="alert-region" role="alert">
+        @if (authError(); as message) {
+          <p class="alert">{{ message }}</p>
+        }
+      </div>
+
+      <button type="submit" class="submit pressable" [disabled]="busy()">
+        @if (loginForm().submitting()) {
+          <span class="spinner" aria-hidden="true"></span>
+          <span>Entrando…</span>
         } @else {
-          <p class="hint" animate.enter="field-enter">
-            Te enviaremos un enlace de un solo uso. Sin contraseñas que recordar.
-          </p>
+          <span>Entrar</span>
+          <app-icon name="arrow-right" [size]="20" />
         }
+      </button>
+    </form>
 
-        <div class="alert-region" role="alert">
-          @if (authError(); as message) {
-            <p class="alert">{{ message }}</p>
-          }
-        </div>
+    <p class="divider" style="--i: 2"><span>o continúa con</span></p>
 
-        <button type="submit" class="submit pressable" [disabled]="busy()">
-          @if (loginForm().submitting()) {
-            <span class="spinner" aria-hidden="true"></span>
-            <span>{{ mode() === 'password' ? 'Entrando…' : 'Enviando…' }}</span>
-          } @else {
-            <span>{{ submitLabel() }}</span>
-            <app-icon name="arrow-right" [size]="20" />
-          }
-        </button>
-      </form>
-
-      <p class="divider" style="--i: 3"><span>o continúa con</span></p>
-
-      <div class="providers" style="--i: 4">
-        <button
-          type="button"
-          class="provider pressable"
-          [disabled]="busy()"
-          (click)="continueWith('google')"
-        >
+    <div class="providers" style="--i: 3">
+      <button
+        type="button"
+        class="provider provider-google pressable"
+        [disabled]="busy()"
+        (click)="continueWith('google')"
+      >
+        <span class="provider-icon">
           @if (pendingProvider() === 'google') {
             <span class="spinner" aria-hidden="true"></span>
           } @else {
@@ -153,14 +117,19 @@
               />
             </svg>
           }
-          <span>Continuar con Google</span>
-        </button>
-        <button
-          type="button"
-          class="provider pressable"
-          [disabled]="busy()"
-          (click)="continueWith('apple')"
-        >
+        </span>
+        <span class="provider-label">
+          <span class="provider-verb">Continuar con</span>
+          <span class="provider-name">Google</span>
+        </span>
+      </button>
+      <button
+        type="button"
+        class="provider provider-apple pressable"
+        [disabled]="busy()"
+        (click)="continueWith('apple')"
+      >
+        <span class="provider-icon">
           @if (pendingProvider() === 'apple') {
             <span class="spinner" aria-hidden="true"></span>
           } @else {
@@ -171,27 +140,30 @@
               />
             </svg>
           }
-          <span>Continuar con Apple</span>
-        </button>
-      </div>
+        </span>
+        <span class="provider-label">
+          <span class="provider-verb">Continuar con</span>
+          <span class="provider-name">Apple</span>
+        </span>
+      </button>
+    </div>
 
-      @if (isDemo) {
-        <aside class="demo" style="--i: 5" aria-label="Modo demo">
-          <p>
-            <strong>Modo demo.</strong> Aún no hay Supabase conectado: cualquier correo y contraseña
-            de 6 o más caracteres te dejan entrar.
-          </p>
-          <button
-            type="button"
-            class="demo-button pressable"
-            [disabled]="busy()"
-            (click)="enterDemo()"
-          >
-            Entrar con la cuenta demo
-            <app-icon name="arrow-right" [size]="16" />
-          </button>
-        </aside>
-      }
+    @if (isDemo) {
+      <aside class="demo" style="--i: 4" aria-label="Modo demo">
+        <p>
+          <strong>Modo demo.</strong> Aún no hay Supabase conectado: cualquier correo y contraseña
+          de 6 o más caracteres te dejan entrar.
+        </p>
+        <button
+          type="button"
+          class="demo-button pressable"
+          [disabled]="busy()"
+          (click)="enterDemo()"
+        >
+          Entrar con la cuenta demo
+          <app-icon name="arrow-right" [size]="16" />
+        </button>
+      </aside>
     }
   </div>
 </main>

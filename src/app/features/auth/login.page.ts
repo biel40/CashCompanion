@@ -10,22 +10,10 @@ import { Icon } from '../../shared/ui/icon/icon';
 import { ThemeToggle } from '../../shared/ui/theme-toggle/theme-toggle';
 import { LoginShowcase } from './components/login-showcase';
 
-export type LoginMode = 'password' | 'magic-link';
-
 interface LoginModel {
   email: string;
   password: string;
 }
-
-interface ModeOption {
-  readonly value: LoginMode;
-  readonly label: string;
-}
-
-const MODES: readonly ModeOption[] = [
-  { value: 'password', label: 'Contraseña' },
-  { value: 'magic-link', label: 'Enlace mágico' },
-];
 
 const MIN_PASSWORD_LENGTH = 6;
 const DEMO_CREDENTIALS: LoginModel = { email: 'alex.martin@example.com', password: 'demo-demo' };
@@ -53,26 +41,20 @@ export class LoginPage {
   /** Where to go after signing in; bound from `?redirect=` by the router. */
   public readonly redirect = input<string>('');
 
-  protected readonly modes = MODES;
   protected readonly isDemo = this._auth.isDemo;
-  protected readonly mode = signal<LoginMode>('password');
-  protected readonly modeIndex = computed(() => MODES.findIndex((m) => m.value === this.mode()));
   protected readonly passwordVisible = signal<boolean>(false);
   protected readonly authError = signal<string | null>(null);
-  protected readonly magicLinkSentTo = signal<string | null>(null);
   protected readonly pendingProvider = signal<OAuthProvider | null>(null);
   protected readonly sendingReset = signal<boolean>(false);
 
   protected readonly loginForm = form(
     this._model,
     (path) => {
-      const usesPassword = (): boolean => this.mode() === 'password';
       required(path.email, { message: 'Escribe tu correo electrónico.' });
       email(path.email, { message: 'Ese correo no parece válido.' });
-      required(path.password, { message: 'Escribe tu contraseña.', when: usesPassword });
+      required(path.password, { message: 'Escribe tu contraseña.' });
       minLength(path.password, MIN_PASSWORD_LENGTH, {
         message: `La contraseña tiene al menos ${MIN_PASSWORD_LENGTH} caracteres.`,
-        when: usesPassword,
       });
     },
     {
@@ -88,14 +70,6 @@ export class LoginPage {
   protected readonly busy = computed(
     () => this.loginForm().submitting() || this.pendingProvider() !== null,
   );
-  protected readonly submitLabel = computed(() =>
-    this.mode() === 'password' ? 'Entrar' : 'Enviarme el enlace',
-  );
-
-  protected setMode(mode: LoginMode): void {
-    this.mode.set(mode);
-    this.authError.set(null);
-  }
 
   protected async continueWith(provider: OAuthProvider): Promise<void> {
     this.authError.set(null);
@@ -120,25 +94,14 @@ export class LoginPage {
   }
 
   protected async enterDemo(): Promise<void> {
-    this.mode.set('password');
     this._model.set(DEMO_CREDENTIALS);
     this.authError.set(null);
     await this._finish(await this._auth.signInWithPassword(DEMO_CREDENTIALS));
   }
 
-  protected useAnotherEmail(): void {
-    this.magicLinkSentTo.set(null);
-  }
-
   private async _submit(): Promise<undefined> {
     this.authError.set(null);
     const { email: address, password } = this._model();
-    if (this.mode() === 'magic-link') {
-      const error = await this._auth.signInWithMagicLink(address);
-      if (error) this.authError.set(ERROR_MESSAGES[error]);
-      else this.magicLinkSentTo.set(address);
-      return undefined;
-    }
     await this._finish(await this._auth.signInWithPassword({ email: address, password }));
     return undefined;
   }
