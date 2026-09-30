@@ -1,0 +1,342 @@
+:host {
+  display: grid;
+  min-height: 100dvh;
+}
+
+.panel {
+  padding: var(--space-8) var(--gutter) calc(var(--space-8) + var(--safe-bottom));
+}
+
+.panel-inner {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 26rem;
+  margin: 0 auto;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--text-title);
+  letter-spacing: var(--tracking-tight);
+}
+
+.lead,
+.hint,
+.sent-text {
+  margin-top: var(--space-1);
+  color: var(--text-muted);
+}
+
+/* Segmented control over native radios */
+.modes {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 0;
+  padding: var(--space-1);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+}
+
+.mode-indicator {
+  position: absolute;
+  inset: var(--space-1) auto var(--space-1) var(--space-1);
+  width: calc(50% - var(--space-1));
+  border-radius: inherit;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  transform: translateX(calc(var(--active, 0) * 100%));
+  transition: transform var(--duration-sheet) var(--ease-spring);
+}
+
+.mode {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--tap-target);
+  border-radius: inherit;
+  color: var(--text-muted);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: color var(--duration-micro) ease;
+}
+
+.mode.active {
+  color: var(--text);
+}
+
+.mode:has(:focus-visible) {
+  outline: 2.5px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label {
+  font-weight: var(--weight-semibold);
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 3.25rem;
+  padding-inline: var(--space-4) var(--space-1);
+  border-radius: var(--radius-row);
+  background: var(--surface);
+  box-shadow:
+    inset 0 0 0 1.5px var(--hairline),
+    var(--shadow-card);
+  color: var(--text-subtle);
+  transition: box-shadow var(--duration-micro) ease;
+}
+
+.control:focus-within {
+  box-shadow: inset 0 0 0 2px var(--focus-ring);
+  color: var(--text);
+}
+
+.control.invalid {
+  box-shadow: inset 0 0 0 2px var(--up);
+}
+
+.control input {
+  flex: 1;
+  min-width: 0;
+  min-height: 3rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  outline: none;
+}
+
+.control input::placeholder {
+  color: var(--text-subtle);
+}
+
+.reveal,
+.forgot {
+  border: 0;
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.reveal {
+  display: grid;
+  place-items: center;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  border-radius: var(--radius-tile);
+}
+
+.forgot {
+  min-height: var(--tap-target);
+  padding: 0;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.field-error {
+  color: var(--up);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
+.alert {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-row);
+  background: var(--accent-red-bg);
+  color: var(--accent-red-fg);
+  font-weight: var(--weight-medium);
+}
+
+.alert-region:empty {
+  display: none;
+}
+
+.submit,
+.provider,
+.secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 3.25rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-weight: var(--weight-semibold);
+}
+
+.submit {
+  margin-top: var(--space-1);
+  background: var(--fab-bg);
+  color: var(--fab-fg);
+  font-size: var(--text-card-title);
+  box-shadow: var(--shadow-float);
+}
+
+.provider,
+.secondary {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-card);
+}
+
+button:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.spinner {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 700ms linear infinite;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-subtle);
+  font-size: var(--text-caption);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.providers {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.demo {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  background: var(--accent-lime-bg);
+  color: var(--accent-lime-fg);
+  font-size: var(--text-caption);
+}
+
+.demo-button {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: var(--space-1);
+  min-height: var(--tap-target);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-weight: var(--weight-bold);
+}
+
+.sent {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+}
+
+.sent-icon {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: var(--radius-tile);
+  background: var(--accent-lime-bg);
+  color: var(--accent-lime-fg);
+}
+
+.sent-title {
+  margin-top: var(--space-2);
+  font-size: var(--text-card-title);
+}
+
+.secondary {
+  margin-top: var(--space-3);
+  padding-inline: var(--space-6);
+}
+
+.field-enter {
+  animation: card-in var(--duration-enter) var(--ease-spring);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (hover: hover) {
+  .provider:hover:enabled,
+  .secondary:hover {
+    box-shadow: var(--shadow-float);
+  }
+
+  .forgot:hover,
+  .reveal:hover {
+    color: var(--text);
+  }
+}
+
+@media (min-width: 600px) {
+  .providers {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .provider span:last-child {
+    font-size: var(--text-caption);
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    padding: var(--space-4);
+  }
+
+  .showcase {
+    position: sticky;
+    top: var(--space-4);
+    align-self: start;
+  }
+
+  .panel {
+    display: grid;
+    align-items: center;
+    padding: var(--space-10);
+  }
+}

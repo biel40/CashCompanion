@@ -19,7 +19,7 @@ export class MoneyFormatter {
     signDisplay: 'exceptZero',
   });
 
-  public format(amountMinor: number, currency: CurrencyCode, wholeUnits = false): string {
+  public format(amountMinor: number, currency: CurrencyCode, wholeUnits: boolean = false): string {
     return this._formatter(currency, wholeUnits).format(amountMinor / 100);
   }
 

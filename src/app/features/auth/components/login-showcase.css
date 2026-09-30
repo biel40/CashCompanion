@@ -1,0 +1,221 @@
+:host {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: calc(var(--safe-top) + var(--space-5)) var(--gutter) var(--space-10);
+  border-radius: 0 0 var(--radius-hero) var(--radius-hero);
+  background: var(--hero-bg);
+  color: var(--hero-fg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  top: -20%;
+  right: -30%;
+  width: 90%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--hero-glow) 0%, transparent 68%);
+  filter: blur(28px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-snug);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.625rem;
+  background: var(--fab-fg);
+  color: var(--fab-bg);
+  font-weight: var(--weight-bold);
+}
+
+/* Floating preview of the app */
+.stage {
+  position: relative;
+  height: 12.5rem;
+  margin-block: var(--space-2);
+}
+
+.ticket,
+.chip {
+  position: absolute;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-float);
+  animation: float 6s ease-in-out infinite;
+}
+
+.ticket {
+  inset: 1.75rem auto auto 50%;
+  display: grid;
+  gap: var(--space-1);
+  width: min(15rem, 72%);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-card);
+  --tilt: -4deg;
+  translate: -50% 0;
+}
+
+.ticket-label,
+.ticket-foot {
+  color: var(--text-muted);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-medium);
+}
+
+.ticket-amount {
+  font-size: var(--text-amount);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+}
+
+.bar {
+  height: 0.5rem;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.fill {
+  display: block;
+  width: 68%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--fab-bg);
+  animation: fill 1.2s 300ms var(--ease-out) both;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  white-space: nowrap;
+}
+
+.chip-a {
+  top: 0;
+  right: 0;
+  --tilt: 5deg;
+  animation-delay: -2s;
+}
+
+.chip-b {
+  bottom: 0;
+  left: 0;
+  --tilt: -3deg;
+  animation-delay: -4s;
+}
+
+.chip-text {
+  display: grid;
+  line-height: 1.25;
+}
+
+.chip-text span {
+  color: var(--text-muted);
+}
+
+.tagline {
+  font-size: var(--text-display);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.05;
+}
+
+.tagline em {
+  font-style: normal;
+  color: var(--hero-muted);
+}
+
+.pitch {
+  max-width: 24rem;
+  color: var(--hero-muted);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--tilt));
+  }
+  50% {
+    transform: translateY(-8px) rotate(var(--tilt));
+  }
+}
+
+@keyframes fill {
+  from {
+    width: 0;
+  }
+}
+
+/* Phones: keep the form above the fold */
+@media (max-width: 599px) {
+  :host {
+    gap: var(--space-3);
+    padding-bottom: var(--space-8);
+  }
+
+  .stage {
+    height: 10.5rem;
+    margin-block: 0;
+  }
+
+  .ticket {
+    top: 1.5rem;
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .tagline {
+    font-size: var(--text-title);
+  }
+
+  .pitch {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  :host {
+    align-content: space-between;
+    min-height: calc(100dvh - 2 * var(--space-4));
+    padding: var(--space-10);
+    border-radius: var(--radius-hero);
+  }
+
+  .stage {
+    height: 17rem;
+    max-width: 30rem;
+    width: 100%;
+    margin-inline: auto;
+  }
+
+  .ticket {
+    width: 18rem;
+    top: 3rem;
+  }
+
+  .tagline {
+    font-size: 3.5rem;
+  }
+
+  .pitch {
+    font-size: var(--text-card-title);
+  }
+}
