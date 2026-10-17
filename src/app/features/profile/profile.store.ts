@@ -5,8 +5,8 @@ import { UserProfile } from '../../core/models/profile';
 
 const DEMO_PROFILE: UserProfile = {
   id: 'demo-user',
-  name: 'Alex Martín',
-  email: 'alex.martin@example.com',
+  name: 'Gabriel Borrás Serra',
+  email: 'gabriel.borras@example.com',
   memberSince: '2024-01-12' as IsoDate,
   color: 'violet',
 };

@@ -5,14 +5,13 @@ import { ThemeToggle } from '../../shared/ui/theme-toggle/theme-toggle';
 import { ProfilePanel } from '../profile/profile-panel';
 import { ProfileStore } from '../profile/profile.store';
 import { HeroCard } from './components/hero-card';
-import { InsightCard } from './components/insight-card';
 import { SubscriptionsCard } from './components/subscriptions-card';
 import { UpcomingPayments } from './components/upcoming-payments';
 import { HomeSummary } from './home-summary';
 
 @Component({
   selector: 'app-home-page',
-  imports: [Avatar, ThemeToggle, HeroCard, SubscriptionsCard, InsightCard, UpcomingPayments],
+  imports: [Avatar, ThemeToggle, HeroCard, SubscriptionsCard, UpcomingPayments],
   providers: [HomeSummary],
   template: `
     <div class="stack stagger">
@@ -53,10 +52,6 @@ import { HomeSummary } from './home-summary';
 
       @if (summary.upcoming().length > 0) {
         <app-upcoming-payments style="--i: 3" [payments]="summary.upcoming()" />
-      }
-
-      @if (summary.topCategory(); as insight) {
-        <app-insight-card style="--i: 4" [insight]="insight" [currency]="currency" />
       }
     </div>
   `,
@@ -116,11 +111,8 @@ import { HomeSummary } from './home-summary';
         align-self: stretch;
       }
       app-upcoming-payments {
+        grid-column: 1 / -1;
         margin-top: 0;
-      }
-      /* Line the insight card up with the payment rows, below their heading */
-      app-insight-card {
-        margin-top: calc(var(--tap-target) + var(--space-2));
       }
     }
   `,

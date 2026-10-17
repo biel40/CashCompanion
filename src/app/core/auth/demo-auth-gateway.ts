@@ -9,8 +9,8 @@ const STORAGE_KEY = 'cc.session';
 const LATENCY_MS = 650;
 const SESSION_MS = 30 * 86_400_000;
 const OAUTH_DEMO_USER: Record<OAuthProvider, { readonly email: string; readonly name: string }> = {
-  google: { email: 'alex.martin@gmail.com', name: 'Alex Martín' },
-  apple: { email: 'alex.martin@icloud.com', name: 'Alex Martín' },
+  google: { email: 'gabriel.borras@gmail.com', name: 'Gabriel Borrás Serra' },
+  apple: { email: 'gabriel.borras@icloud.com', name: 'Gabriel Borrás Serra' },
 };
 
 /**

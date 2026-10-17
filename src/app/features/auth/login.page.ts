@@ -16,7 +16,7 @@ interface LoginModel {
 }
 
 const MIN_PASSWORD_LENGTH = 6;
-const DEMO_CREDENTIALS: LoginModel = { email: 'alex.martin@example.com', password: 'demo-demo' };
+const DEMO_CREDENTIALS: LoginModel = { email: 'gabriel.borras@example.com', password: 'demo-demo' };
 
 const ERROR_MESSAGES: Record<AuthErrorCode, string> = {
   invalid_credentials: 'El correo o la contraseña no coinciden.',

@@ -5,7 +5,11 @@ import { DemoAuthGateway } from './demo-auth-gateway';
 
 const SIGNED_OUT_KEY = 'cc.debug-signed-out';
 const DEBUG_SESSION: AuthSession = {
-  user: { id: 'debug:alex', email: 'alex.martin@example.com', name: 'Alex Martín' },
+  user: {
+    id: 'debug:gabriel',
+    email: 'gabriel.borras@example.com',
+    name: 'Gabriel Borrás Serra',
+  },
   expiresAt: '2999-12-31T23:59:59.000Z' as IsoDateTime,
 };
 
